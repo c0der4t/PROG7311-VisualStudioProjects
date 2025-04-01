@@ -1,4 +1,7 @@
 
+using ConferenceAPI.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace ConferenceAPI
 {
     public class Program
@@ -6,6 +9,11 @@ namespace ConferenceAPI
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddDbContext<ApplicationDBConnect>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DbServer"));
+            });
 
             // Add services to the container.
             builder.Services.AddAuthorization();
